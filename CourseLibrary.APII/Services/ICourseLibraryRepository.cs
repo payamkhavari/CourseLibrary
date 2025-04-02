@@ -13,5 +13,7 @@ namespace CourseLibrary.APII.Services
         IEnumerable<Author> GetAuthorsBySearching(string searchQuery);
         Author AddAuthor(Author author);
         Course AddCourse(Guid authorId,Course course);
+        Course UpdateCourse(Course course);
+        void DeleteCourse(Guid courseId,Guid authorId);
     }
 }

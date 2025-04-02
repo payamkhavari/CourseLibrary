@@ -5,33 +5,15 @@ using CourseLibrary.APII.ValidationAttributes;
 
 namespace CourseLibrary.APII.Models
 {
-    [CourseTitleDifferentFromDescription]
-    public class CourseForCreateionDTO /*: IValidatableObject*/
+    public class CourseForCreateionDTO : CourseForManipulationDTO
     {
-        [Required]
-        [MaximumOfTitleInCourseClass]
-        [MaxLength(100)]
-        public string Title { get; set; }
-        [MaxLength(3000)]
-        public string Description { get; set; }
+        //with write virtual keyword in this property we can change it whenever we want
+        //if we define this property abstract we should emplement this in the child class
+        // but now we did not have any error and if we want to change it we can change it or override that
 
-        //public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        //{
-        //    if (Title == Description)
-        //    {
-        //        yield return new ValidationResult(
-        //            "The provided description should be different from the Title",
-        //            new[] { "CourseForCreateionDTO" });
 
-        //    }
 
-        //    if (Title.Length == 0)
-        //    {
-        //        yield return new ValidationResult(
-        //            "you should input at least 2 character in this part.",
-        //            new[] { "Title" }
-        //            );
-        //    }
-        //}
+        [Required(ErrorMessage ="You should fill out a description.")]
+        public override string Description { get => base.Description; set => base.Description = value; }
     }
 }

@@ -90,7 +90,7 @@ namespace CourseLibrary.APII.Services
         {
             var author = _context.Authors.FirstOrDefault(n => n.Id == authorId);
 
-            if(author == null)
+            if (author == null)
             {
                 throw new Exception("this Author id cannot be found!!");
             }
@@ -105,6 +105,42 @@ namespace CourseLibrary.APII.Services
             _context.Courses.Add(newCourse);
             _context.SaveChanges();
             return newCourse;
+        }
+
+        public Course UpdateCourse(Course course)
+        {
+            var existingCourse = _context.Courses.FirstOrDefault(n => n.Id == course.Id);
+
+            if (existingCourse == null)
+            {
+                throw new Exception($"this Course with {course.Id} cannot be found!!");
+            }
+            existingCourse.Id = course.Id;
+            existingCourse.AuthorId = course.AuthorId;
+            existingCourse.Description = course.Description;
+            existingCourse.Title = course.Title;
+
+            _context.Courses.Update(existingCourse);
+            _context.SaveChanges();
+            return existingCourse;
+        }
+
+        public void DeleteCourse(Guid courseId, Guid authorId)
+        {
+            var existingCourse = _context.Courses.FirstOrDefault(n => n.Id == courseId);
+            var existingAuthor = _context.Authors.FirstOrDefault(n => n.Id == authorId);
+
+            if (existingCourse == null && existingAuthor == null)
+            {
+                throw new Exception($"this Course with {courseId} and {authorId} cannot be found!!");
+            }
+
+            existingCourse.Id = courseId;
+            existingAuthor.Id = authorId;
+            _context.Courses.Remove(existingCourse);
+            _context.SaveChanges();
+            _context.Authors.Remove(existingAuthor);
+            _context.SaveChanges();
         }
     }
 }

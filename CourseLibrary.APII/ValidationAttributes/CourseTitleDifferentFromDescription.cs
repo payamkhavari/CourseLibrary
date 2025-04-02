@@ -9,13 +9,13 @@ namespace CourseLibrary.APII.ValidationAttributes
     {
         protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
         {
-            var course = (CourseForCreateionDTO)validationContext.ObjectInstance;
+            var course = (CourseForManipulationDTO)validationContext.ObjectInstance;
 
             if(course.Title == course.Description)
             {
                 return new ValidationResult(
                     "The Provided Description Should Be Different From The Title.",
-                    new[] {nameof(CourseForCreateionDTO)}
+                    new[] {nameof(CourseForManipulationDTO) }
                     );
             }
             return ValidationResult.Success;

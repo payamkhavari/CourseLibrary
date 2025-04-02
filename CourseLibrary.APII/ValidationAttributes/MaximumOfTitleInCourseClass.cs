@@ -7,7 +7,7 @@ namespace CourseLibrary.APII.ValidationAttributes
     {
         protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
         {
-            var course = (CourseForCreateionDTO)validationContext.ObjectInstance;
+            var course = (CourseForManipulationDTO)validationContext.ObjectInstance;
 
             if(course.Title.Length >= 100)
             {
